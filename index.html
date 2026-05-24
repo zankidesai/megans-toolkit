@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Megan's Toolkit</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+:root {
+  --bg: #f6f3ef;
+  --surface: #ffffff;
+  --surface2: #ede8e1;
+  --border: rgba(0,0,0,0.08);
+  --text: #251d12;
+  --muted: #8a7d72;
+  --rose: #c0717b;
+  --sage: #5a8f74;
+  --sky: #4f7fa0;
+  --warm: #b87339;
+  --lavender: #7d6baf;
+  --clay: #a85f47;
+  --forest: #3b6652;
+  --sun: #c9963a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 660px; margin: 0 auto; padding: 32px 16px 100px; }
+
+/* HEADER */
+.header { text-align: center; margin-bottom: 26px; }
+.header-emoji { font-size: 2rem; margin-bottom: 7px; }
+.header h1 { font-family: 'Lora', serif; font-size: clamp(1.85rem, 5vw, 2.55rem); font-weight: 600; letter-spacing: -0.01em; margin-bottom: 5px; }
+.header h1 em { font-style: italic; color: #d63b1f; text-shadow: 0 2px 0 rgba(0,0,0,0.08), 0 0 20px rgba(214,59,31,0.3); -webkit-text-stroke: 0.3px rgba(214,59,31,0.4); }
+.header-sub { color: var(--muted); font-size: 0.88rem; font-weight: 300; line-height: 1.6; max-width: 320px; margin: 0 auto; }
+
+/* ZANKI NOTE */
+.zanki-note { background: linear-gradient(135deg,#fff5f6 0%,#fdf1f8 100%); border: 1.5px solid rgba(192,113,123,0.28); border-radius: 20px; padding: 19px 21px; margin-bottom: 24px; position: relative; overflow: hidden; }
+.zanki-note::before { content:'❝'; position:absolute; top:-4px; left:12px; font-size:3.6rem; color:rgba(192,113,123,0.1); font-family:Georgia,serif; line-height:1; }
+.zanki-note p { font-family:'Lora',serif; font-style:italic; font-size:0.96rem; line-height:1.72; color:var(--text); position:relative; z-index:1; }
+.zanki-note .from { margin-top:9px; font-style:normal; font-size:0.72rem; font-weight:500; color:var(--rose); letter-spacing:0.07em; text-transform:uppercase; }
+
+/* TABS */
+.tabs { display:flex; gap:3px; margin-bottom:22px; background:var(--surface); padding:5px; border-radius:16px; border:1px solid var(--border); overflow-x:auto; scrollbar-width:none; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+.tabs::-webkit-scrollbar { display:none; }
+.tab-btn { flex:0 0 auto; background:none; border:none; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:500; padding:8px 9px; border-radius:11px; cursor:pointer; transition:all 0.2s; white-space:nowrap; touch-action:manipulation; }
+.tab-btn:hover { color:var(--text); background:var(--surface2); }
+.tab-btn.active { background:var(--bg); color:var(--text); box-shadow:0 1px 5px rgba(0,0,0,0.09); }
+
+/* SECTIONS */
+.section { display:none; animation:fadeUp 0.3s ease; }
+.section.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* CARDS */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:22px; margin-bottom:13px; box-shadow:0 2px 10px rgba(0,0,0,0.04); }
+.card-label { font-size:0.64rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:11px; display:flex; align-items:center; gap:8px; font-weight:500; }
+.card-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.card h3 { font-family:'Lora',serif; font-size:1.13rem; margin-bottom:8px; line-height:1.25; }
+.card p,.card li { font-size:0.87rem; color:var(--muted); line-height:1.75; font-weight:300; }
+.card ul { padding-left:16px; }
+.card li { margin-bottom:4px; }
+
+.section-intro { margin-bottom:20px; }
+.section-intro h2 { font-family:'Lora',serif; font-size:1.42rem; margin-bottom:4px; }
+.section-intro p { font-size:0.87rem; color:var(--muted); line-height:1.65; font-weight:300; }
+
+.why-box { background:var(--surface2); border-radius:11px; padding:12px 14px; margin-top:13px; border-left:3px solid var(--sky); }
+.why-label { font-size:0.63rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--sky); margin-bottom:4px; }
+.why-box p { font-size:0.83rem; color:var(--muted); line-height:1.65; }
+
+.btn-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:4px; }
+.btn-p { background:var(--sage); color:#fff; border:none; font-family:'DM Sans',sans-serif; font-weight:500; font-size:0.89rem; padding:12px 26px; border-radius:30px; cursor:pointer; transition:opacity 0.2s,transform 0.1s; touch-action:manipulation; }
+.btn-p:hover { opacity:0.87; }
+.btn-p:active { transform:scale(0.96); }
+.btn-s { background:var(--surface2); border:1px solid var(--border); color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.89rem; padding:12px 20px; border-radius:30px; cursor:pointer; transition:background 0.2s; touch-action:manipulation; }
+.btn-s:hover { background:#e3ddd6; }
+
+/* SHARED */
+.step-list { list-style:none; padding:0; margin:8px 0 0; }
+.step-list li { display:flex; gap:9px; margin-bottom:8px; align-items:flex-start; }
+.step-list .n { width:21px; height:21px; border-radius:50%; background:var(--sage); color:#fff; font-size:0.68rem; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.step-list p { font-size:0.85rem; color:var(--muted); line-height:1.65; font-weight:300; }
+
+.tag { font-size:0.66rem; font-weight:500; letter-spacing:0.04em; padding:3px 9px; border-radius:20px; text-transform:uppercase; }
+.tag-sky { background:rgba(79,127,160,0.1); color:var(--sky); border:1px solid rgba(79,127,160,0.2); }
+.tag-sage { background:rgba(90,143,116,0.1); color:var(--sage); border:1px solid rgba(90,143,116,0.2); }
+.tag-warm { background:rgba(184,115,57,0.1); color:var(--warm); border:1px solid rgba(184,115,57,0.2); }
+.tag-clay { background:rgba(168,95,71,0.1); color:var(--clay); border:1px solid rgba(168,95,71,0.2); }
+.tag-sun { background:rgba(201,150,58,0.1); color:var(--sun); border:1px solid rgba(201,150,58,0.2); }
+.tag-rose { background:rgba(192,113,123,0.1); color:var(--rose); border:1px solid rgba(192,113,123,0.2); }
+.tag-forest { background:rgba(59,102,82,0.1); color:var(--forest); border:1px solid rgba(59,102,82,0.2); }
+.tag-lav { background:rgba(125,107,175,0.1); color:var(--lavender); border:1px solid rgba(125,107,175,0.2); }
+
+/* EXPANDABLE CARDS */
+.exp-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; margin-bottom:11px; overflow:hidden; cursor:pointer; box-shadow:0 1px 5px rgba(0,0,0,0.04); touch-action:manipulation; }
+.exp-head { display:flex; gap:12px; align-items:center; padding:15px 17px; }
+.exp-icon { font-size:1.45rem; flex-shrink:0; }
+.exp-head-info { flex:1; }
+.exp-head-title { font-weight:500; font-size:0.91rem; margin-bottom:2px; }
+.exp-head-sub { font-size:0.75rem; color:var(--muted); }
+.exp-arrow { font-size:0.78rem; color:var(--muted); transition:transform 0.25s; flex-shrink:0; }
+.exp-card.open .exp-arrow { transform:rotate(90deg); }
+.exp-body { padding:0 17px 15px; display:none; }
+.exp-card.open .exp-body { display:block; }
+.exp-body > p { font-size:0.86rem; color:var(--muted); line-height:1.7; font-weight:300; margin-bottom:10px; }
+
+/* ══════════ BREATHWORK ══════════ */
+.tech-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.tech-btn { background:var(--surface2); border:1.5px solid transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.75rem; padding:7px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.tech-btn.active,.tech-btn:hover { background:rgba(79,127,160,0.1); border-color:var(--sky); color:var(--sky); }
+.tech-desc { font-size:0.83rem; color:var(--muted); text-align:center; line-height:1.65; margin-bottom:13px; font-weight:300; min-height:44px; }
+.breath-wrap { display:flex; flex-direction:column; align-items:center; padding:6px 0 14px; }
+.breath-circle { width:140px; height:140px; border-radius:50%; background:radial-gradient(circle at 38% 38%,rgba(79,127,160,0.14),rgba(79,127,160,0.02)); border:2px solid var(--sky); margin-bottom:16px; transition:box-shadow 0.3s; }
+.breath-circle.expand { animation:bExp var(--idur,4s) ease-in-out forwards; }
+.breath-circle.hold { transform:scale(1.38); box-shadow:0 0 24px rgba(79,127,160,0.2); }
+.breath-circle.contract { animation:bCon var(--edur,6s) ease-in-out forwards; }
+@keyframes bExp { 0%{transform:scale(1);box-shadow:none} 100%{transform:scale(1.38);box-shadow:0 0 24px rgba(79,127,160,0.2)} }
+@keyframes bCon { 0%{transform:scale(1.38);box-shadow:0 0 24px rgba(79,127,160,0.2)} 100%{transform:scale(1);box-shadow:none} }
+.breath-label { font-family:'Lora',serif; font-size:1.18rem; color:var(--sky); min-height:28px; text-align:center; }
+.breath-count { font-size:2.3rem; font-weight:200; color:var(--text); min-height:48px; text-align:center; font-variant-numeric:tabular-nums; }
+
+/* ══════════ BILATERAL TAPPING ══════════ */
+.tap-intro { font-size:0.87rem; color:var(--muted); line-height:1.7; font-weight:300; margin-bottom:16px; text-align:center; }
+.tap-speed-row { display:flex; gap:7px; justify-content:center; margin-bottom:18px; flex-wrap:wrap; }
+.spd-btn { background:var(--surface2); border:1.5px solid transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.76rem; padding:7px 13px; border-radius:20px; cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.spd-btn.active { background:rgba(90,143,116,0.12); border-color:var(--sage); color:var(--sage); }
+.tap-visual { display:flex; align-items:center; justify-content:center; gap:28px; width:100%; margin-bottom:16px; }
+.tap-side { display:flex; flex-direction:column; align-items:center; gap:9px; }
+.tap-hand { width:84px; height:84px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; background:var(--surface2); border:3px solid var(--border); transition:all 0.12s ease; user-select:none; }
+.tap-hand.lit { background:rgba(90,143,116,0.16); border-color:var(--sage); transform:scale(1.12); box-shadow:0 0 18px rgba(90,143,116,0.28); }
+.tap-hand-label { font-size:0.7rem; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.tap-counter { font-size:0.83rem; color:var(--muted); margin-bottom:14px; min-height:20px; text-align:center; }
+.tap-cue { font-family:'Lora',serif; font-style:italic; font-size:1.02rem; color:var(--text); text-align:center; margin-bottom:16px; min-height:26px; transition:opacity 0.15s; }
+
+/* ══════════ 5-4-3-2-1 ══════════ */
+.progress-bar-wrap { margin-bottom:14px; }
+.progress-bar-bg { height:6px; background:var(--surface2); border-radius:3px; overflow:hidden; }
+.progress-bar-fill { height:100%; background:var(--sage); border-radius:3px; transition:width 0.45s ease; width:0%; }
+.progress-text { font-size:0.73rem; color:var(--muted); margin-top:5px; }
+.sense-card { border:1.5px solid var(--border); border-radius:15px; margin-bottom:9px; overflow:hidden; cursor:pointer; transition:border-color 0.22s; touch-action:manipulation; }
+.sense-card.done { border-color:rgba(90,143,116,0.35); background:rgba(90,143,116,0.04); }
+.sense-head { display:flex; align-items:center; gap:11px; padding:13px 15px; }
+.sense-num { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.82rem; font-weight:600; flex-shrink:0; transition:all 0.25s; }
+.sense-title { font-weight:500; font-size:0.9rem; flex:1; }
+.sense-tick { font-size:0.95rem; transition:opacity 0.2s; opacity:0; }
+.sense-card.done .sense-tick { opacity:1; }
+.sense-body { padding:0 15px 13px; display:none; }
+.sense-card.open .sense-body { display:block; }
+.sense-body p { font-size:0.85rem; color:var(--muted); line-height:1.7; font-weight:300; margin-bottom:9px; }
+.nature-tip { font-size:0.81rem; color:var(--forest); background:rgba(59,102,82,0.07); border-radius:8px; padding:8px 11px; margin-bottom:9px; line-height:1.6; }
+.nature-tip::before { content:'🌿 '; }
+.sense-input { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.86rem; padding:10px 12px; outline:none; transition:border-color 0.2s; font-weight:300; }
+.sense-input:focus { border-color:rgba(90,143,116,0.4); }
+.sense-input::placeholder { color:var(--muted); opacity:0.5; }
+.sense-done-btn { margin-top:9px; background:var(--sage); color:#fff; border:none; font-family:'DM Sans',sans-serif; font-size:0.81rem; font-weight:500; padding:8px 16px; border-radius:20px; cursor:pointer; transition:opacity 0.2s; touch-action:manipulation; }
+
+/* reset mini cards */
+.reset-card { background:var(--surface2); border-radius:15px; margin-bottom:9px; border:1.5px solid transparent; overflow:hidden; cursor:pointer; touch-action:manipulation; }
+.reset-head { display:flex; align-items:center; gap:12px; padding:14px 16px; }
+.reset-icon { font-size:1.45rem; flex-shrink:0; }
+.reset-title { font-weight:500; font-size:0.9rem; flex:1; }
+.reset-arrow { font-size:0.77rem; color:var(--muted); transition:transform 0.25s; }
+.reset-card.open .reset-arrow { transform:rotate(90deg); }
+.reset-body { padding:0 16px 13px; display:none; }
+.reset-card.open .reset-body { display:block; }
+
+/* RAGE */
+.alert-box { background:rgba(184,115,57,0.07); border:1.5px solid rgba(184,115,57,0.22); border-radius:13px; padding:13px 15px; margin-bottom:11px; }
+.alert-box h4 { font-size:0.77rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--warm); margin-bottom:5px; }
+.alert-box p { font-size:0.84rem; color:var(--muted); line-height:1.65; font-weight:300; }
+
+/* OCD */
+.ocd-box { background:rgba(125,107,175,0.07); border:1.5px solid rgba(125,107,175,0.2); border-radius:14px; padding:15px 17px; margin-bottom:12px; }
+.ocd-box h4 { font-size:0.77rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--lavender); margin-bottom:6px; }
+.ocd-box p { font-size:0.85rem; color:var(--muted); line-height:1.7; font-weight:300; }
+.ocd-box p+p { margin-top:6px; }
+.dare-row { display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border); }
+.dare-row:last-child { border-bottom:none; }
+.dare-letter { width:33px; height:33px; border-radius:50%; background:rgba(125,107,175,0.1); border:1.5px solid rgba(125,107,175,0.25); color:var(--lavender); font-size:0.83rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.dare-row strong { display:block; font-size:0.9rem; font-weight:500; margin-bottom:3px; }
+.dare-row p { font-size:0.84rem; color:var(--muted); line-height:1.7; font-weight:300; }
+
+/* JOURNAL */
+.rand-prompt { background:linear-gradient(135deg,rgba(125,107,175,0.08),rgba(192,113,123,0.05)); border:1.5px solid rgba(125,107,175,0.2); border-radius:14px; padding:18px; text-align:center; min-height:82px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+.rand-prompt p { font-family:'Lora',serif; font-style:italic; font-size:1.01rem; color:var(--text); line-height:1.55; }
+.j-prompt { background:var(--surface2); border-left:3px solid var(--rose); padding:11px 13px; border-radius:0 11px 11px 0; margin-bottom:7px; font-size:0.88rem; line-height:1.65; color:var(--text); cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.j-prompt:hover { border-color:var(--lavender); transform:translateX(3px); background:rgba(125,107,175,0.05); }
+.j-textarea { width:100%; background:var(--surface2); border:1.5px solid var(--border); border-radius:13px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.89rem; font-weight:300; line-height:1.75; padding:13px; min-height:140px; resize:vertical; margin-top:12px; outline:none; transition:border-color 0.2s; }
+.j-textarea:focus { border-color:rgba(125,107,175,0.4); }
+.j-textarea::placeholder { color:var(--muted); opacity:0.5; }
+
+/* TIMER */
+.ring-wrap { position:relative; width:180px; height:180px; margin:0 auto 18px; }
+.ring-wrap svg { transform:rotate(-90deg); }
+.ring-bg { fill:none; stroke:var(--surface2); stroke-width:7; }
+.ring-fill { fill:none; stroke:var(--sage); stroke-width:7; stroke-linecap:round; transition:stroke-dashoffset 1s linear; }
+.ring-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; }
+.ring-time { font-size:2.3rem; font-weight:200; display:block; line-height:1; font-variant-numeric:tabular-nums; }
+.ring-act { font-size:0.71rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; }
+.preset-row { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
+.pre-btn { background:var(--surface2); border:1.5px solid transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.75rem; padding:7px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.pre-btn.active,.pre-btn:hover { background:rgba(90,143,116,0.1); border-color:var(--sage); color:var(--sage); }
+
+/* WHY */
+.explain-card { background:var(--surface); border:1px solid var(--border); border-radius:17px; padding:20px 22px; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.explain-card h3 { font-family:'Lora',serif; font-size:1.08rem; margin-bottom:8px; }
+.explain-card p { font-size:0.86rem; color:var(--muted); line-height:1.75; font-weight:300; }
+.explain-card p+p { margin-top:7px; }
+.hl { display:inline; background:rgba(90,143,116,0.12); color:var(--sage); padding:1px 5px; border-radius:4px; font-weight:500; font-size:0.83rem; }
+
+/* ══════════════════════════════
+   WELLNESS TAB
+══════════════════════════════ */
+
+/* DAILY TRACKERS */
+.tracker-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.tracker-tile { background:var(--surface); border:1.5px solid var(--border); border-radius:16px; padding:16px; text-align:center; cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.tracker-tile.checked { border-color:var(--sage); background:rgba(90,143,116,0.07); }
+.tracker-tile .t-icon { font-size:1.8rem; margin-bottom:6px; display:block; }
+.tracker-tile .t-label { font-size:0.78rem; font-weight:500; color:var(--text); display:block; margin-bottom:3px; }
+.tracker-tile .t-goal { font-size:0.71rem; color:var(--muted); display:block; }
+.tracker-tile .t-check { font-size:1rem; display:block; margin-top:6px; opacity:0; transition:opacity 0.2s; }
+.tracker-tile.checked .t-check { opacity:1; }
+
+/* WATER TRACKER */
+.water-row { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; margin:12px 0; }
+.water-cup { width:34px; height:34px; border-radius:8px; border:2px solid var(--sky); background:transparent; cursor:pointer; transition:all 0.15s; touch-action:manipulation; font-size:1.1rem; display:flex; align-items:center; justify-content:center; }
+.water-cup.filled { background:rgba(79,127,160,0.2); border-color:var(--sky); }
+.water-label { text-align:center; font-size:0.82rem; color:var(--muted); margin-top:6px; }
+
+/* GYM TRACKER */
+.gym-week { display:flex; gap:6px; justify-content:center; margin:12px 0; }
+.gym-day { display:flex; flex-direction:column; align-items:center; gap:5px; cursor:pointer; touch-action:manipulation; }
+.gym-day-circle { width:40px; height:40px; border-radius:50%; border:2px solid var(--border); background:var(--surface2); display:flex; align-items:center; justify-content:center; font-size:1rem; transition:all 0.18s; }
+.gym-day-circle.done { background:rgba(90,143,116,0.15); border-color:var(--sage); }
+.gym-day-circle.rest { background:rgba(79,127,160,0.08); border-color:rgba(79,127,160,0.3); font-size:0.7rem; color:var(--sky); font-weight:500; }
+.gym-day-label { font-size:0.68rem; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.05em; }
+
+/* WORKOUT LOG */
+.workout-log-entry { background:var(--surface2); border-radius:12px; padding:13px 14px; margin-bottom:8px; }
+.workout-log-entry .wl-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.workout-log-entry .wl-date { font-size:0.73rem; font-weight:500; color:var(--muted); }
+.workout-log-entry .wl-delete { font-size:0.72rem; color:var(--clay); cursor:pointer; background:none; border:none; font-family:inherit; touch-action:manipulation; }
+.workout-log-entry .wl-note { font-size:0.85rem; color:var(--text); line-height:1.55; font-weight:300; }
+.log-input-row { display:flex; gap:8px; margin-top:10px; }
+.log-input { flex:1; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.87rem; padding:10px 12px; outline:none; transition:border-color 0.2s; font-weight:300; }
+.log-input:focus { border-color:rgba(90,143,116,0.4); }
+.log-input::placeholder { color:var(--muted); opacity:0.5; }
+.log-add-btn { background:var(--sage); color:#fff; border:none; font-family:'DM Sans',sans-serif; font-size:0.83rem; font-weight:500; padding:10px 16px; border-radius:10px; cursor:pointer; touch-action:manipulation; white-space:nowrap; }
+
+/* NUTRITION */
+.meal-section { margin-bottom:6px; }
+.meal-label { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.09em; color:var(--warm); margin-bottom:8px; }
+.meal-tip-cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:4px; }
+.meal-tip { background:var(--surface2); border-radius:12px; padding:12px 13px; }
+.meal-tip .mt-icon { font-size:1.2rem; margin-bottom:5px; display:block; }
+.meal-tip strong { display:block; font-size:0.83rem; font-weight:500; margin-bottom:2px; }
+.meal-tip p { font-size:0.79rem; color:var(--muted); line-height:1.55; font-weight:300; }
+
+.nutrition-fact { display:flex; gap:11px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--border); }
+.nutrition-fact:last-child { border-bottom:none; }
+.nf-icon { font-size:1.3rem; flex-shrink:0; }
+.nf-body strong { display:block; font-size:0.88rem; font-weight:500; margin-bottom:2px; }
+.nf-body p { font-size:0.83rem; color:var(--muted); line-height:1.65; font-weight:300; }
+
+/* GROCERY LIST */
+.grocery-tabs { display:flex; gap:6px; margin-bottom:14px; }
+.groc-tab { background:var(--surface2); border:1.5px solid transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.77rem; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s; touch-action:manipulation; flex:1; text-align:center; }
+.groc-tab.active { background:rgba(184,115,57,0.1); border-color:var(--warm); color:var(--warm); }
+.groc-store { display:none; }
+.groc-store.active { display:block; }
+.groc-category { margin-bottom:16px; }
+.groc-cat-label { font-size:0.71rem; font-weight:600; text-transform:uppercase; letter-spacing:0.09em; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.groc-cat-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.groc-item { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(0,0,0,0.04); cursor:pointer; touch-action:manipulation; }
+.groc-item:last-child { border-bottom:none; }
+.groc-item .gi-check { width:20px; height:20px; border-radius:5px; border:2px solid var(--border); background:transparent; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.15s; font-size:0.75rem; }
+.groc-item.checked .gi-check { background:var(--sage); border-color:var(--sage); color:#fff; }
+.groc-item .gi-text { font-size:0.87rem; color:var(--text); font-weight:300; flex:1; transition:color 0.15s; }
+.groc-item.checked .gi-text { color:var(--muted); text-decoration:line-through; }
+.groc-item .gi-store { font-size:0.68rem; color:var(--muted); background:var(--surface2); padding:2px 7px; border-radius:10px; }
+.groc-add-row { display:flex; gap:8px; margin-top:10px; }
+.groc-add-input { flex:1; background:var(--surface2); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.86rem; padding:10px 12px; outline:none; transition:border-color 0.2s; font-weight:300; }
+.groc-add-input:focus { border-color:rgba(184,115,57,0.4); }
+.groc-add-input::placeholder { color:var(--muted); opacity:0.5; }
+.groc-add-btn { background:var(--warm); color:#fff; border:none; font-family:'DM Sans',sans-serif; font-size:0.83rem; font-weight:500; padding:10px 14px; border-radius:10px; cursor:pointer; touch-action:manipulation; }
+
+/* RECIPES */
+.recipe-filter-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+.rf-btn { background:var(--surface2); border:1.5px solid transparent; color:var(--muted); font-family:'DM Sans',sans-serif; font-size:0.74rem; padding:6px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s; touch-action:manipulation; }
+.rf-btn.active { background:rgba(192,113,123,0.1); border-color:var(--rose); color:var(--rose); }
+
+.recipe-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px 18px; margin-bottom:11px; box-shadow:0 1px 5px rgba(0,0,0,0.04); }
+.recipe-card .rc-header { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px; }
+.recipe-card .rc-title { font-family:'Lora',serif; font-size:1.05rem; font-weight:600; flex:1; line-height:1.3; }
+.recipe-card .rc-delete { font-size:0.72rem; color:var(--clay); cursor:pointer; background:none; border:none; font-family:inherit; touch-action:manipulation; flex-shrink:0; margin-top:2px; }
+.recipe-card .rc-tags { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
+.recipe-card .rc-notes { font-size:0.83rem; color:var(--muted); line-height:1.6; font-weight:300; margin-bottom:8px; }
+.recipe-card .rc-link { display:inline-flex; align-items:center; gap:5px; font-size:0.79rem; color:var(--sky); text-decoration:none; font-weight:500; background:rgba(79,127,160,0.08); padding:5px 11px; border-radius:20px; transition:background 0.2s; }
+.recipe-card .rc-link:hover { background:rgba(79,127,160,0.15); }
+
+.add-recipe-form { background:var(--surface2); border-radius:16px; padding:16px; margin-top:4px; }
+.add-recipe-form h4 { font-size:0.83rem; font-weight:600; color:var(--text); margin-bottom:12px; }
+.form-field { margin-bottom:10px; }
+.form-field label { display:block; font-size:0.72rem; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px; }
+.form-field input,.form-field textarea,.form-field select {
+  width:100%; background:var(--surface); border:1.5px solid var(--border); border-radius:10px;
+  color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.86rem;
+  padding:10px 12px; outline:none; transition:border-color 0.2s; font-weight:300;
+  -webkit-appearance:none;
+}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus { border-color:rgba(192,113,123,0.4); }
+.form-field textarea { resize:vertical; min-height:70px; }
+
+/* SUNSHINE NOTE */
+.sunshine-banner { background:linear-gradient(135deg,rgba(201,150,58,0.12),rgba(192,113,123,0.08)); border:1.5px solid rgba(201,150,58,0.28); border-radius:16px; padding:16px 18px; margin-bottom:13px; display:flex; gap:14px; align-items:center; }
+.sunshine-banner .sb-icon { font-size:2rem; flex-shrink:0; }
+.sunshine-banner h4 { font-weight:500; font-size:0.91rem; margin-bottom:3px; }
+.sunshine-banner p { font-size:0.82rem; color:var(--muted); line-height:1.6; font-weight:300; }
+
+.sms-btn { background:linear-gradient(135deg,#e8563a,#c9963a); color:#fff; border:none; font-family:'DM Sans',sans-serif; font-weight:500; font-size:0.88rem; padding:11px 22px; border-radius:30px; cursor:pointer; transition:opacity 0.2s,transform 0.1s; touch-action:manipulation; box-shadow:0 4px 14px rgba(232,86,58,0.28); }
+.sms-btn:hover { opacity:0.88; }
+.sms-btn:active { transform:scale(0.96); }
+
+@media(max-width:480px) {
+  .tracker-grid { grid-template-columns:1fr 1fr; }
+  .meal-tip-cards { grid-template-columns:1fr 1fr; }
+  .tap-hand { width:76px; height:76px; font-size:2rem; }
+  .ring-wrap { width:168px; height:168px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="header-emoji">🌿</div>
+  <h1>Megan's <em>Toolkit</em></h1>
+  <p class="header-sub">You're activated right now. That's okay. Everything you need is right here.</p>
+</div>
+
+<div class="zanki-note">
+  <p>You are such a good and kind soul, and I am so proud of the work you're putting into understanding yourself. The fact that you have this toolkit — and that you're using it — means you're already doing something most people never do. You're trying. You're growing. That matters more than you know. I love you and I'm rooting for you every single step of the way. 🌸</p>
+  <div class="from">— Zanki Desai</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('breathwork',this)">🌬 Breathe</button>
+  <button class="tab-btn" onclick="showTab('grounding',this)">🌿 Ground</button>
+  <button class="tab-btn" onclick="showTab('tapping',this)">👐 Tap</button>
+  <button class="tab-btn" onclick="showTab('rage',this)">🔥 Rage</button>
+  <button class="tab-btn" onclick="showTab('ocd',this)">🧠 OCD</button>
+  <button class="tab-btn" onclick="showTab('journal',this)">✍️ Write</button>
+  <button class="tab-btn" onclick="showTab('movement',this)">🧘 Move</button>
+  <button class="tab-btn" onclick="showTab('wellness',this)">💪 Wellness</button>
+  <button class="tab-btn" onclick="showTab('timer',this)">⏱ Timer</button>
+  <button class="tab-btn" onclick="showTab('why',this)">💡 Why?</button>
+</div>
+
+<!-- ═══════ BREATHWORK ═══════ -->
+<div id="breathwork" class="section active">
+  <div class="section-intro"><h2>Breathwork</h2><p>Your breath talks directly to your nervous system — no thinking required.</p></div>
+  <div class="card">
+    <div class="card-label">Choose a technique</div>
+    <div class="tech-row">
+      <button class="tech-btn active" onclick="selectTech('box',this)">Box (4-4-4-4)</button>
+      <button class="tech-btn" onclick="selectTech('478',this)">4-7-8</button>
+      <button class="tech-btn" onclick="selectTech('sigh',this)">Physiological Sigh</button>
+      <button class="tech-btn" onclick="selectTech('exhale',this)">Extended Exhale</button>
+    </div>
+    <p class="tech-desc" id="techDesc">Inhale 4 · Hold 4 · Exhale 4 · Hold 4 — equal-sided breathing stabilizes your nervous system and brings you back to neutral.</p>
+    <div class="breath-wrap">
+      <div class="breath-circle" id="breathCircle"></div>
+      <div class="breath-label" id="breathLabel">Ready</div>
+      <div class="breath-count" id="breathCount">—</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-p" onclick="startBreath()">Start</button>
+      <button class="btn-s" onclick="stopBreath()">Stop</button>
+    </div>
+    <div class="why-box" style="margin-top:16px;"><div class="why-label">Why this works</div><p id="whyBreath">Slowing your breath stimulates the vagus nerve — the main cable of your "rest and digest" system. Even 90 seconds measurably lowers your heart rate and cortisol.</p></div>
+  </div>
+</div>
+
+<!-- ═══════ GROUNDING ═══════ -->
+<div id="grounding" class="section">
+  <div class="section-intro"><h2>5-4-3-2-1 Grounding</h2><p>When your mind races, your senses anchor you. Tap each one, type what you notice, mark it done.</p></div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="senseProgress"></div></div>
+    <div class="progress-text" id="senseProgressText">0 of 5 complete</div>
+  </div>
+  <div class="sense-card" id="sc0" onclick="toggleSense(0)">
+    <div class="sense-head"><div class="sense-num" style="background:rgba(79,127,160,0.1);border:1.5px solid rgba(79,127,160,0.25);color:var(--sky)">5</div><div class="sense-title">👁 Things you can SEE</div><div class="sense-tick">✅</div></div>
+    <div class="sense-body"><p>Look around slowly. Name 5 specific things — not just "a chair" but "a wooden chair with a red cushion." Specificity interrupts the panic loop.</p><div class="nature-tip">Outside: name a cloud shape, a specific leaf, bark color, a shadow, how light hits something.</div><input class="sense-input" id="si0" placeholder="I see: ..." onclick="event.stopPropagation()"><button class="sense-done-btn" onclick="markSenseDone(0,event)">Done ✓</button></div>
+  </div>
+  <div class="sense-card" id="sc1" onclick="toggleSense(1)">
+    <div class="sense-head"><div class="sense-num" style="background:rgba(90,143,116,0.1);border:1.5px solid rgba(90,143,116,0.25);color:var(--sage)">4</div><div class="sense-title">🤚 Things you can TOUCH</div><div class="sense-tick">✅</div></div>
+    <div class="sense-body"><p>Press both feet flat on the floor and push down. Run your hand along a nearby surface. Notice temperature, texture, pressure.</p><div class="nature-tip">Outside: press your hand to soil, bark, grass, or a rock. Warm from sun or cool in shade?</div><input class="sense-input" id="si1" placeholder="I can touch: ..." onclick="event.stopPropagation()"><button class="sense-done-btn" onclick="markSenseDone(1,event)">Done ✓</button></div>
+  </div>
+  <div class="sense-card" id="sc2" onclick="toggleSense(2)">
+    <div class="sense-head"><div class="sense-num" style="background:rgba(184,115,57,0.1);border:1.5px solid rgba(184,115,57,0.25);color:var(--warm)">3</div><div class="sense-title">👂 Things you can HEAR</div><div class="sense-tick">✅</div></div>
+    <div class="sense-body"><p>Close your eyes 10 seconds. Listen in layers — closest first, then farther, then background.</p><div class="nature-tip">Outside: birds, wind in leaves, water, insects, distant cars. Count how many separate sounds.</div><input class="sense-input" id="si2" placeholder="I hear: ..." onclick="event.stopPropagation()"><button class="sense-done-btn" onclick="markSenseDone(2,event)">Done ✓</button></div>
+  </div>
+  <div class="sense-card" id="sc3" onclick="toggleSense(3)">
+    <div class="sense-head"><div class="sense-num" style="background:rgba(125,107,175,0.1);border:1.5px solid rgba(125,107,175,0.25);color:var(--lavender)">2</div><div class="sense-title">👃 Things you can SMELL</div><div class="sense-tick">✅</div></div>
+    <div class="sense-body"><p>Slow breath in through your nose. Earthy? Warm? Sharp? Even "nothing" counts.</p><div class="nature-tip">Outside: soil after rain (petrichor), pine, cut grass, fresh air. Crafting: yarn, fabric, wood.</div><input class="sense-input" id="si3" placeholder="I smell: ..." onclick="event.stopPropagation()"><button class="sense-done-btn" onclick="markSenseDone(3,event)">Done ✓</button></div>
+  </div>
+  <div class="sense-card" id="sc4" onclick="toggleSense(4)">
+    <div class="sense-head"><div class="sense-num" style="background:rgba(192,113,123,0.1);border:1.5px solid rgba(192,113,123,0.25);color:var(--rose)">1</div><div class="sense-title">👅 Thing you can TASTE</div><div class="sense-tick">✅</div></div>
+    <div class="sense-body"><p>Notice what's on your tongue. Drink water if you have it — temperature is especially grounding.</p><div class="nature-tip">No water? Press your tongue to the roof of your mouth. Notice any residual taste.</div><input class="sense-input" id="si4" placeholder="I taste: ..." onclick="event.stopPropagation()"><button class="sense-done-btn" onclick="markSenseDone(4,event)">Done ✓</button></div>
+  </div>
+  <button class="btn-s" style="width:100%;margin-top:4px" onclick="resetSenses()">↺ Start Over</button>
+  <div class="why-box" style="margin-top:13px;"><div class="why-label">Why this works</div><p>Your brain can't fully process threat and detailed sensory information at the same time. Naming specifics activates your prefrontal cortex and quiets your amygdala. It literally interrupts the panic circuit.</p></div>
+
+  <div class="card" style="margin-top:13px;">
+    <div class="card-label">Fast physical resets</div>
+    <h3>When you need something immediate</h3>
+    <div class="reset-card" onclick="this.classList.toggle('open')">
+      <div class="reset-head"><div class="reset-icon">🧊</div><div class="reset-title">Cold water on your face</div><div class="reset-arrow">▶</div></div>
+      <div class="reset-body"><ul class="step-list"><li><div class="n">1</div><p>Go to a sink or grab ice / a cold drink.</p></li><li><div class="n">2</div><p>Splash cold water on your face, or hold ice in both hands, or press a cold can to your forehead and cheeks.</p></li><li><div class="n">3</div><p>Hold for 20–30 seconds. Breathe slowly while you do it.</p></li><li><div class="n">4</div><p>Repeat once more if needed.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>Triggers the mammalian dive reflex — drops your heart rate within 30 seconds. Bypasses thinking entirely.</p></div></div>
+    </div>
+    <div class="reset-card" onclick="this.classList.toggle('open')">
+      <div class="reset-head"><div class="reset-icon">🤲</div><div class="reset-title">Self-hug / body hold</div><div class="reset-arrow">▶</div></div>
+      <div class="reset-body"><ul class="step-list"><li><div class="n">1</div><p>Cross your arms over your chest and grip your shoulders firmly.</p></li><li><div class="n">2</div><p>Squeeze with steady, firm pressure — a real hold, not a quick pat.</p></li><li><div class="n">3</div><p>Hold 30–60 seconds. Breathe slowly. Gently rock if it feels right.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>Sustained deep pressure activates the parasympathetic system — same mechanism as a weighted blanket. Your body responds to containment as a safety signal.</p></div></div>
+    </div>
+    <div class="reset-card" onclick="this.classList.toggle('open')">
+      <div class="reset-head"><div class="reset-icon">🦶</div><div class="reset-title">Root yourself to the floor</div><div class="reset-arrow">▶</div></div>
+      <div class="reset-body"><ul class="step-list"><li><div class="n">1</div><p>Sit or stand. Both feet flat on the floor.</p></li><li><div class="n">2</div><p>Push your feet DOWN into the floor as hard as you can.</p></li><li><div class="n">3</div><p>Feel the floor pushing back. That resistance is real. You are here.</p></li><li><div class="n">4</div><p>Say quietly: "I am here. Right now, I am safe."</p></li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TAPPING ═══════ -->
+<div id="tapping" class="section">
+  <div class="section-intro"><h2>Bilateral Tapping</h2><p>Alternating left-right stimulation calms the amygdala — same principle as EMDR therapy. Follow the light and tap along.</p></div>
+  <div class="card">
+    <div class="card-label">How to tap</div>
+    <p class="tap-intro">Rest your hands on your thighs or knees. When the left hand lights up — tap your left knee. When right lights up — tap your right knee. Keep it gentle and rhythmic. You can also cross your arms and tap your shoulders.</p>
+    <div class="tap-speed-row">
+      <button class="spd-btn" onclick="setTapSpeed(900,this)">🐢 Slow</button>
+      <button class="spd-btn active" onclick="setTapSpeed(600,this)">〰️ Medium</button>
+      <button class="spd-btn" onclick="setTapSpeed(380,this)">⚡ Fast</button>
+    </div>
+    <div class="tap-visual">
+      <div class="tap-side"><div class="tap-hand" id="tapLeft">🤚</div><div class="tap-hand-label">Left</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div class="tap-cue" id="tapCue">Press Start</div>
+        <div class="tap-counter" id="tapCounter"></div>
+      </div>
+      <div class="tap-side"><div class="tap-hand" id="tapRight">🤚</div><div class="tap-hand-label">Right</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-p" id="tapStartBtn" onclick="startTap()">Start</button>
+      <button class="btn-s" onclick="stopTap()">Stop</button>
+    </div>
+    <div class="why-box" style="margin-top:16px;"><div class="why-label">Why this works</div><p>Bilateral (left-right) stimulation activates both brain hemispheres simultaneously, reducing the intensity of distressing emotions. It's the same mechanism behind EMDR therapy, developed for trauma and hyperarousal — and you don't need a therapist to use it.</p></div>
+    <div class="why-box" style="margin-top:9px;border-left-color:var(--forest);"><div class="why-label" style="color:var(--forest)">Outdoors version</div><p>Walking does the same thing — your left and right foot strike is bilateral. Walk at a medium pace, no music, just feel the alternating movement. Tapping a trail marker, a rock, or your hiking poles alternately also counts.</p></div>
+  </div>
+</div>
+
+<!-- ═══════ RAGE ═══════ -->
+<div id="rage" class="section">
+  <div class="section-intro"><h2>Rage Protocol</h2><p>Rage is real and it has a reason. Your job right now is to move the energy safely — not suppress it, not aim it at someone.</p></div>
+  <div class="alert-box"><h4>🛑 First — pause before acting</h4><p>If you're reading this, you caught yourself. That pause is the whole ballgame. The urge to explode is your nervous system saying "discharge this energy." Give it somewhere else to go first.</p></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🏃</div><div class="exp-head-info"><div class="exp-head-title">Move your body — right now</div><div class="exp-head-sub">Step 1 — always</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n" style="background:var(--clay)">1</div><p>Stand up immediately.</p></li><li><div class="n" style="background:var(--clay)">2</div><p>Stomp your feet hard on the floor 10 times. Make noise. Feel it.</p></li><li><div class="n" style="background:var(--clay)">3</div><p>Shake out both hands like flicking water off — fast, hard, 15 seconds.</p></li><li><div class="n" style="background:var(--clay)">4</div><p>Do 20 jumping jacks, or walk fast for 2 minutes, or sprint in place.</p></li><li><div class="n" style="background:var(--clay)">5</div><p>If outside: walk briskly, swing your arms, let your body move hard.</p></li></ul></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">😤</div><div class="exp-head-info"><div class="exp-head-title">Lion's Breath</div><div class="exp-head-sub">Yes, it looks ridiculous. Do it anyway.</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n" style="background:var(--clay)">1</div><p>Sit or kneel. Take a full deep breath in through your nose.</p></li><li><div class="n" style="background:var(--clay)">2</div><p>Open your mouth wide. Stick your tongue all the way out toward your chin.</p></li><li><div class="n" style="background:var(--clay)">3</div><p>Exhale hard and forcefully — "haaa" sound. Eyes wide.</p></li><li><div class="n" style="background:var(--clay)">4</div><p>If alone: make it loud. The vibration in your throat is part of the release.</p></li><li><div class="n" style="background:var(--clay)">5</div><p>Repeat 3–5 times. Notice your jaw soften after each one.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>The forceful exhale stimulates the vagus nerve. The jaw and throat hold enormous stress — releasing them physically signals the entire nervous system to downregulate.</p></div></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🔊</div><div class="exp-head-info"><div class="exp-head-title">Vocalize it privately</div><div class="exp-head-sub">Affect labeling — it works</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n" style="background:var(--clay)">1</div><p>Find privacy — bathroom, car, or outside.</p></li><li><div class="n" style="background:var(--clay)">2</div><p>Say out loud: "I am furious because ___." Use the real words.</p></li><li><div class="n" style="background:var(--clay)">3</div><p>Say: "What I actually need right now is ___."</p></li><li><div class="n" style="background:var(--clay)">4</div><p>Yell into a pillow or outside if you need to.</p></li></ul><div class="why-box"><div class="why-label">Why (affect labeling)</div><p>Naming an emotion out loud activates your prefrontal cortex and measurably reduces amygdala activity. Saying "I feel furious" lowers the emotional intensity within seconds.</p></div></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">⏸️</div><div class="exp-head-info"><div class="exp-head-title">20-minute delay rule</div><div class="exp-head-sub">Before texting, calling, or confronting anyone</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n" style="background:var(--clay)">1</div><p>Put your phone face down or in another room.</p></li><li><div class="n" style="background:var(--clay)">2</div><p>Go to the Timer tab and set 20 minutes.</p></li><li><div class="n" style="background:var(--clay)">3</div><p>Do one other tool while you wait.</p></li><li><div class="n" style="background:var(--clay)">4</div><p>When the timer goes off, ask: do I still feel the same urgency?</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>Adrenaline clears your bloodstream in about 20 minutes. Responses made before that window are made by a temporarily impaired brain. The timer isn't avoidance — it's strategy.</p></div></div></div>
+  <div class="why-box" style="border-left-color:var(--clay)"><div class="why-label" style="color:var(--clay)">Why rage happens</div><p>Bipolar disorder involves structural differences in the amygdala and prefrontal cortex — your alarm system fires faster and stays on longer. Your medications help stabilize the baseline — and these tools bridge the gap in the acute moment when they need backup.</p></div>
+  <div class="alert-box" style="margin-top:12px;border-color:rgba(192,113,123,0.25);background:rgba(192,113,123,0.05);"><h4 style="color:var(--rose)">💗 If you've already said or done something</h4><p>Regulate first. Repair later. One activated moment defines nothing about your worth or your progress.</p></div>
+</div>
+
+<!-- ═══════ OCD ═══════ -->
+<div id="ocd" class="section">
+  <div class="section-intro"><h2>OCD — Intrusive Thoughts</h2><p>Built specifically for your brain. Understanding what's happening is part of defusing it.</p></div>
+  <div class="ocd-box"><h4>🧠 What's actually happening</h4><p>All brains generate intrusive thoughts. In OCD, your brain mislabels them as significant or dangerous and fires an alarm. The more you push the thought away or neutralize it, the more your brain treats it as a real threat — and loops it back louder.</p><p>The thought is not a desire. Not a prediction. Not who you are. It is misfiring threat detection. That is all.</p></div>
+  <div class="card">
+    <div class="card-label">When a thought intrudes</div>
+    <h3>The DARE Response</h3>
+    <div class="dare-row"><div class="dare-letter">D</div><div><strong>Defuse — label it without engaging</strong><p>Say mentally: "There's a thought." Not "I'm thinking that I might ___." Just: "There's a thought." You are the observer. The thought is not you.</p></div></div>
+    <div class="dare-row"><div class="dare-letter">A</div><div><strong>Allow — don't fight it</strong><p>Fighting gives it power. Let it exist without doing anything about it. "Okay, you're here. I'm not going to argue with you."</p></div></div>
+    <div class="dare-row"><div class="dare-letter">R</div><div><strong>Redirect — move attention, not thoughts</strong><p>Name 3 things you see. Press your feet to the floor. Take one slow breath. The thought can stay in the background — you're choosing where to aim your focus.</p></div></div>
+    <div class="dare-row"><div class="dare-letter">E</div><div><strong>Engage — return to your life</strong><p>The thought may still be at the edges. You don't need it gone to move forward. The more you practice returning without engaging, the faster the loop dies.</p></div></div>
+    <div class="why-box" style="margin-top:8px;"><div class="why-label">Why NOT to reassure yourself</div><p>Each time you seek reassurance, you teach your brain that the thought required a response — OCD gets stronger. The goal is to tolerate uncertainty without treating it as an emergency.</p></div>
+  </div>
+  <div class="card"><div class="card-label">Urge surfing</div><h3>Ride the wave — don't act on it</h3><p>Compulsive urges peak and fall within 20–40 minutes whether you act on them or not. Go to the Timer tab and set a delay. Every surf weakens that neural pathway a little more.</p><div class="why-box"><div class="why-label">The science</div><p>This is Exposure and Response Prevention (ERP) — the gold-standard OCD treatment. You don't need a therapist. Tolerating discomfort without the compulsion is itself the therapy.</p></div></div>
+</div>
+
+<!-- ═══════ JOURNAL ═══════ -->
+<div id="journal" class="section">
+  <div class="section-intro"><h2>Write It Out</h2><p>You don't have to make sense. Getting thoughts out of your head and onto a page changes how your brain processes them.</p></div>
+  <div class="card">
+    <div class="card-label">Random prompt</div>
+    <div class="rand-prompt"><p id="randPromptText">Tap below for a prompt.</p></div>
+    <div class="btn-row"><button class="btn-p" style="background:var(--lavender)" onclick="newPrompt()">New Prompt</button></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Tap any prompt to use it</div>
+    <p style="font-size:0.81rem;color:var(--muted);margin-bottom:12px;font-weight:300">Written for activated states. No wrong answers.</p>
+    <div class="j-prompt" onclick="usePrompt(this)">Right now my body feels like ___. I notice ___ in my [chest / jaw / stomach / hands].</div>
+    <div class="j-prompt" onclick="usePrompt(this)">What triggered this? What story am I telling about it — and what might it be leaving out?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">The thought that keeps looping is ___. I don't have to solve it right now because ___.</div>
+    <div class="j-prompt" onclick="usePrompt(this)">What do I actually need right now — not what I want to do, but what I actually need?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">If I imagine this moment 48 hours from now, what will feel less urgent?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">What is underneath the anger? What is it protecting me from?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">Am I in actual danger right now, or does it just feel like danger?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">What would I say to Zanki if she were feeling exactly this right now?</div>
+    <div class="j-prompt" onclick="usePrompt(this)">One thing that is still true and solid about me, even in this moment, is ___.</div>
+    <div class="j-prompt" onclick="usePrompt(this)">I feel most like myself when I'm ___. How can I get 10% closer to that right now?</div>
+    <textarea class="j-textarea" id="journalTA" placeholder="Start writing anything at all..."></textarea>
+  </div>
+</div>
+
+<!-- ═══════ MOVEMENT ═══════ -->
+<div id="movement" class="section">
+  <div class="section-intro"><h2>Move & Reset</h2><p>Regulation lives in your body. These are chosen for their direct effect on your nervous system.</p></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🧘</div><div class="exp-head-info"><div class="exp-head-title">Child's Pose</div><div class="exp-head-sub">Calming · 1–3 min</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n">1</div><p>Kneel on the floor, big toes together, knees hip-width apart.</p></li><li><div class="n">2</div><p>Sit your hips back toward your heels.</p></li><li><div class="n">3</div><p>Fold forward, arms stretched out. Forehead to the floor.</p></li><li><div class="n">4</div><p>Breathe into your back — feel your ribcage expand. Exhale slowly.</p></li><li><div class="n">5</div><p>Stay at least 60 seconds. There's nowhere to be.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>The forward fold and compression signal safety to the nervous system and directly lower cortisol. One of the few yoga poses with a clear evidence base for anxiety.</p></div></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🌊</div><div class="exp-head-info"><div class="exp-head-title">Cat-Cow Breath</div><div class="exp-head-sub">Releases tension · 2 min</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n">1</div><p>Hands and knees. Hands under shoulders, knees under hips.</p></li><li><div class="n">2</div><p>Inhale: let belly drop, lift head and tailbone up. (Cow)</p></li><li><div class="n">3</div><p>Exhale: round spine upward, tuck chin and tailbone. (Cat)</p></li><li><div class="n">4</div><p>Let breath lead. Don't rush. 10–15 slow rounds.</p></li><li><div class="n">5</div><p>After last exhale, rest in Child's Pose.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>Rhythmic movement is inherently calming. Spinal flexion/extension stimulates the vagal nerve pathways running alongside your spine, moving stuck energy out of the chest and torso.</p></div></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🫨</div><div class="exp-head-info"><div class="exp-head-title">Body Shaking (TRE)</div><div class="exp-head-sub">Discharge energy · 60–90 sec</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n">1</div><p>Stand feet hip-width, knees slightly bent.</p></li><li><div class="n">2</div><p>Start gently bouncing your legs — heels barely rising.</p></li><li><div class="n">3</div><p>Let shaking travel up through hips, torso, arms. Don't control it.</p></li><li><div class="n">4</div><p>Shake for 60–90 seconds. Your legs might shake harder on their own — that's right.</p></li><li><div class="n">5</div><p>Stop. Stand still. Take 3 slow breaths. Notice the difference.</p></li></ul><div class="why-box"><div class="why-label">Why (TRE)</div><p>Animals shake after a threat to discharge adrenaline. Humans learned to suppress this. TRE recreates that discharge and completes the stress cycle that rage leaves unfinished.</p></div></div></div>
+  <div class="exp-card" onclick="this.classList.toggle('open')"><div class="exp-head"><div class="exp-icon">🚶</div><div class="exp-head-info"><div class="exp-head-title">Intentional Walk (outdoors)</div><div class="exp-head-sub">Ground + discharge · 5–15 min</div></div><div class="exp-arrow">▶</div></div><div class="exp-body"><ul class="step-list"><li><div class="n">1</div><p>Go outside. No phone in hand, no earbuds.</p></li><li><div class="n">2</div><p>Walk at a medium-fast pace — fast enough to feel your body working.</p></li><li><div class="n">3</div><p>Anchor to your steps: left, right, left, right. Feel each foot hit the ground.</p></li><li><div class="n">4</div><p>Every time your mind wanders, return to noticing: what you see, hear, feel.</p></li><li><div class="n">5</div><p>Walk at least 5 minutes. 10–15 is better. No destination needed.</p></li></ul><div class="why-box"><div class="why-label">Why</div><p>Walking is bilateral, rhythmic, and grounding all at once. Nature specifically reduces cortisol and amygdala activity — even 10 minutes changes brain chemistry. This is neuroscience, not "get some air."</p></div></div></div>
+</div>
+
+<!-- ═══════ WELLNESS ═══════ -->
+<div id="wellness" class="section">
+  <div class="section-intro"><h2>Wellness</h2><p>Your body and your mood are not separate things. What you eat, drink, move, and feel on your face all directly affect your brain chemistry.</p></div>
+
+  <!-- SUNSHINE BANNER -->
+  <div class="sunshine-banner">
+    <div class="sb-icon">☀️</div>
+    <div><h4>10 minutes of morning sunlight</h4><p>Morning light on your face within an hour of waking sets your circadian rhythm, boosts serotonin, and improves sleep quality at night. It is one of the most effective free interventions for mood stabilization. Non-negotiable on good days. Especially important on hard ones.</p></div>
+  </div>
+
+  <!-- DAILY TRACKERS -->
+  <div class="card">
+    <div class="card-label">Today's dailies</div>
+    <h3>Check off as you go</h3>
+    <div class="tracker-grid" id="trackerGrid">
+      <div class="tracker-tile" onclick="toggleTracker(this)"><span class="t-icon">☀️</span><span class="t-label">Morning Sun</span><span class="t-goal">10 min outside</span><span class="t-check">✓</span></div>
+      <div class="tracker-tile" onclick="toggleTracker(this)"><span class="t-icon">💊</span><span class="t-label">Medications</span><span class="t-goal">Both taken today ✓</span><span class="t-check">✓</span></div>
+      <div class="tracker-tile" onclick="toggleTracker(this)"><span class="t-icon">🥗</span><span class="t-label">Ate a real meal</span><span class="t-goal">Not just snacks</span><span class="t-check">✓</span></div>
+      <div class="tracker-tile" onclick="toggleTracker(this)"><span class="t-icon">😴</span><span class="t-label">Sleep</span><span class="t-goal">7–9 hours</span><span class="t-check">✓</span></div>
+    </div>
+
+    <!-- WATER TRACKER -->
+    <div style="margin-top:16px;">
+      <div class="card-label">Water intake</div>
+      <div class="water-row" id="waterRow"></div>
+      <div class="water-label" id="waterLabel">0 of 8 glasses</div>
+      <button class="btn-s" style="margin-top:10px;font-size:0.78rem;padding:8px 16px" onclick="resetWater()">↺ Reset</button>
+    </div>
+  </div>
+
+  <!-- GYM TRACKER -->
+  <div class="card">
+    <div class="card-label">Gym this week</div>
+    <h3>Track your 3 sessions 💪</h3>
+    <div class="gym-week" id="gymWeek"></div>
+    <div id="gymMessage" style="text-align:center;font-size:0.82rem;color:var(--muted);margin-top:6px;min-height:20px;"></div>
+    <div id="smsRow" style="display:none;text-align:center;margin-top:12px;"><button class="sms-btn" onclick="sendWorkoutText()">💬 Send Megan a congrats text</button></div>
+
+    <div style="margin-top:16px;">
+      <div class="card-label">Workout log</div>
+      <div id="workoutLog"></div>
+      <div class="log-input-row">
+        <input class="log-input" id="workoutInput" placeholder="e.g. Legs + cardio, felt great 💪">
+        <button class="log-add-btn" onclick="addWorkoutLog()">Log it</button>
+      </div>
+    </div>
+
+    <div class="why-box" style="margin-top:14px;border-left-color:var(--sage)"><div class="why-label">Why 3x/week is exactly right</div><p>For mood stabilization, 150 minutes of moderate exercise per week is the evidence-backed sweet spot. It increases BDNF (brain-derived neurotrophic factor) — literally a fertilizer for brain cells — and is as effective as antidepressants for mild-to-moderate depression. Three gym sessions covers it perfectly.</p></div>
+  </div>
+
+  <!-- NUTRITION -->
+  <div class="card">
+    <div class="card-label">Nutrition for your brain</div>
+    <h3>What to eat and why</h3>
+    <p style="margin-bottom:16px">No rules — just what your brain runs best on. More of these = more stable mood, better energy, less reactivity.</p>
+
+    <div class="nutrition-fact"><div class="nf-icon">🥩</div><div class="nf-body"><strong>Protein at every meal</strong><p>Proteins are amino acid precursors to serotonin, dopamine, and norepinephrine — the exact neurotransmitters your medications help support. Aim for 20–30g at breakfast especially: eggs, Greek yogurt, cottage cheese, chicken, salmon, beans, lentils.</p></div></div>
+    <div class="nutrition-fact"><div class="nf-icon">🐟</div><div class="nf-body"><strong>Omega-3 fatty acids</strong><p>DHA and EPA directly support brain cell membrane function and reduce neuroinflammation. Studies show supplementation reduces bipolar episode frequency. Sources: salmon, sardines, walnuts, flaxseed, chia seeds. Or a fish oil supplement (1–2g/day).</p></div></div>
+    <div class="nutrition-fact"><div class="nf-icon">🌱</div><div class="nf-body"><strong>Gut-brain connection</strong><p>90% of your serotonin is made in your gut. Fermented foods (yogurt, kefir, kimchi, sauerkraut) and fiber (fruits, veggies, legumes, oats) feed the gut bacteria that support serotonin production. Your gut literally affects your mood.</p></div></div>
+    <div class="nutrition-fact"><div class="nf-icon">🩸</div><div class="nf-body"><strong>Blood sugar stability</strong><p>Blood sugar crashes trigger cortisol spikes — which trigger anxiety and irritability. Don't skip meals. Pair carbs with protein or fat. Oatmeal alone spikes then crashes; oatmeal + peanut butter sustains. This one matters more than most people realize.</p></div></div>
+    <div class="nutrition-fact"><div class="nf-icon">☕</div><div class="nf-body"><strong>Caffeine — with limits</strong><p>Fine in the morning. Caffeine after 2pm disrupts sleep quality even if you fall asleep fine — and poor sleep is the fastest trigger for mood instability. Keep it to 1–2 cups before noon.</p></div></div>
+    <div class="nutrition-fact"><div class="nf-icon">🍬</div><div class="nf-body"><strong>Ultra-processed food & sugar</strong><p>High sugar intake increases systemic inflammation, which directly worsens depression and anxiety symptoms. Not "never eat it" — just notice how you feel 2 hours after. Your body gives clear feedback.</p></div></div>
+
+    <div style="margin-top:16px;">
+      <div class="meal-label">Quick meal ideas for brain health</div>
+      <div class="meal-tip-cards">
+        <div class="meal-tip"><span class="mt-icon">🍳</span><strong>Breakfast</strong><p>Eggs + avocado toast · Greek yogurt + berries + granola · Oatmeal + PB + banana · Smoothie with protein powder + spinach</p></div>
+        <div class="meal-tip"><span class="mt-icon">🥙</span><strong>Lunch</strong><p>Chicken wrap + veggies · Salmon + rice bowl · Big salad + chickpeas + egg · Lentil soup + bread</p></div>
+        <div class="meal-tip"><span class="mt-icon">🍽️</span><strong>Dinner</strong><p>Sheet pan salmon + veggies · Ground turkey taco bowls · Stir fry + brown rice · Pasta + turkey bolognese</p></div>
+        <div class="meal-tip"><span class="mt-icon">🍎</span><strong>Snacks</strong><p>Apple + almond butter · Hummus + veggies · String cheese + grapes · Trail mix (nuts + dark choc) · Cottage cheese + fruit</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROCERY LIST -->
+  <div class="card">
+    <div class="card-label">Grocery list</div>
+    <h3>Kroger & Aldi 🛒</h3>
+    <div class="grocery-tabs">
+      <button class="groc-tab active" onclick="switchStore('kroger',this)">Kroger</button>
+      <button class="groc-tab" onclick="switchStore('aldi',this)">Aldi</button>
+    </div>
+
+    <div class="groc-store active" id="groc-kroger"></div>
+    <div class="groc-store" id="groc-aldi"></div>
+
+    <div class="groc-add-row">
+      <input class="groc-add-input" id="grocInput" placeholder="Add an item...">
+      <button class="groc-add-btn" onclick="addGrocItem()">+ Add</button>
+    </div>
+    <button class="btn-s" style="width:100%;margin-top:9px;font-size:0.78rem;padding:8px 14px" onclick="clearCheckedGroc()">Remove checked items</button>
+  </div>
+
+  <!-- RECIPES -->
+  <div class="card">
+    <div class="card-label">Recipe pins</div>
+    <h3>TikToks, blogs & your saves 📌</h3>
+    <div class="recipe-filter-row">
+      <button class="rf-btn active" onclick="filterRecipes('all',this)">All</button>
+      <button class="rf-btn" onclick="filterRecipes('breakfast',this)">Breakfast</button>
+      <button class="rf-btn" onclick="filterRecipes('lunch',this)">Lunch</button>
+      <button class="rf-btn" onclick="filterRecipes('dinner',this)">Dinner</button>
+      <button class="rf-btn" onclick="filterRecipes('snack',this)">Snack</button>
+      <button class="rf-btn" onclick="filterRecipes('meal prep',this)">Meal Prep</button>
+    </div>
+    <div id="recipeList"></div>
+
+    <div class="add-recipe-form">
+      <h4>📌 Pin a recipe</h4>
+      <div class="form-field"><label>Recipe name</label><input id="rName" placeholder="e.g. High Protein Breakfast Bowls"></div>
+      <div class="form-field"><label>Link (TikTok, blog, etc.)</label><input id="rLink" placeholder="https://..."></div>
+      <div class="form-field"><label>Category</label>
+        <select id="rCat"><option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="dinner">Dinner</option><option value="snack">Snack</option><option value="meal prep">Meal Prep</option></select>
+      </div>
+      <div class="form-field"><label>Notes (optional)</label><textarea id="rNotes" placeholder="e.g. use less salt, add hot sauce, meal prep Sunday..."></textarea></div>
+      <button class="btn-p" style="width:100%;margin-top:4px" onclick="addRecipe()">Save Recipe 📌</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TIMER ═══════ -->
+<div id="timer" class="section">
+  <div class="section-intro"><h2>Timed Activities</h2><p>Give your nervous system one job with a clear endpoint. Knowing it ends makes it easier to stay with.</p></div>
+  <div class="card">
+    <div class="card-label">Activity timer</div>
+    <div class="ring-wrap">
+      <svg width="180" height="180" viewBox="0 0 180 180"><circle class="ring-bg" cx="90" cy="90" r="80"/><circle class="ring-fill" id="ringFill" cx="90" cy="90" r="80" stroke-dasharray="503" stroke-dashoffset="0"/></svg>
+      <div class="ring-text"><span class="ring-time" id="ringTime">5:00</span><span class="ring-act" id="ringAct">choose below</span></div>
+    </div>
+    <div class="preset-row">
+      <button class="pre-btn" onclick="setTimer(60,'Breathe',this)">1 min · Breathe</button>
+      <button class="pre-btn" onclick="setTimer(120,'Ground',this)">2 min · Ground</button>
+      <button class="pre-btn active" onclick="setTimer(300,'Journal',this)">5 min · Journal</button>
+      <button class="pre-btn" onclick="setTimer(600,'Walk',this)">10 min · Walk</button>
+      <button class="pre-btn" onclick="setTimer(1200,'Cool down',this)">20 min · Cool down</button>
+    </div>
+    <div class="btn-row"><button class="btn-p" id="timerBtn" onclick="startTimer()">Start</button><button class="btn-s" onclick="resetTimer()">Reset</button></div>
+  </div>
+  <div class="card"><div class="card-label">OCD — delay the compulsion</div><h3>Urge surf timer</h3><p style="margin-bottom:14px">Set a timer before acting on the urge. The urge will peak and fall on its own.</p><div class="preset-row"><button class="pre-btn" onclick="setTimer(120,'Delay urge',this)">2 min</button><button class="pre-btn" onclick="setTimer(300,'Delay urge',this)">5 min</button><button class="pre-btn" onclick="setTimer(600,'Delay urge',this)">10 min</button><button class="pre-btn" onclick="setTimer(900,'Delay urge',this)">15 min</button><button class="pre-btn" onclick="setTimer(1200,'Delay urge',this)">20 min</button></div></div>
+</div>
+
+<!-- ═══════ WHY? ═══════ -->
+<div id="why" class="section">
+  <div class="section-intro"><h2>Why does this happen to me?</h2><p>You deserve to understand what's going on in your own brain. None of this is a character flaw.</p></div>
+  <div class="explain-card"><h3>🧠 What bipolar disorder actually does</h3><p>Your amygdala fires more easily and takes longer to calm down. Your prefrontal cortex has a harder time putting the brakes on emotional reactions when you're activated. You are not overreacting — you are having a neurologically larger reaction to the same trigger. What you're building here is the skill of <span class="hl">bridging the gap</span> between the alarm firing and your response.</p></div>
+  <div class="explain-card"><h3>🔄 What hyper-arousal actually is</h3><p>When activated, cortisol and adrenaline flood your system and blood literally moves away from your prefrontal cortex and toward your muscles. This is why "just calm down" doesn't work — you're <span class="hl">physiologically prepared to fight or flee</span>, not think. Every tool here targets your physiology directly, working with your body not against it.</p></div>
+  <div class="explain-card"><h3>🌀 OCD intrusive thoughts — the loop</h3><p>Each time you engage with the thought — reassuring, checking, analyzing — your brain logs: <span class="hl">that thought required a response.</span> The loop gets stronger. The path through OCD is changing your relationship to the thought — letting it exist without treating it as an emergency.</p></div>
+  <div class="explain-card"><h3>💊 What your medications are doing</h3><p>Your mood stabilizer reduces the abnormal electrical activity in the brain that drives mood episodes — especially the lows and rapid cycling. It raises the floor without sedating you.</p><p>Your SSRI increases serotonin availability over time, supporting emotional regulation, impulse control, and OCD symptom management. The two work on different systems and complement each other — one stabilizes the mood architecture, the other regulates the emotional tone within it.</p></div>
+  <div class="explain-card"><h3>💪 Why exercise changes everything</h3><p>Exercise increases BDNF (brain-derived neurotrophic factor) — literally a growth fertilizer for brain cells — and boosts serotonin, dopamine, and norepinephrine. Three sessions a week is clinically shown to be as effective as antidepressants for mood stabilization. It also reduces amygdala reactivity over time, meaning fewer and less intense rage/anxiety episodes the longer you keep it up.</p></div>
+  <div class="explain-card"><h3>🌿 Why you're not broken</h3><p>Your brain learned to be this reactive for a reason. Hypervigilance and intense emotions often develop as adaptations — they protected you at some point. You're not starting over. Every time you use a tool instead of a reaction, you build a new neural pathway. That is real, measurable, biological change. You are just starting — and you're already doing it.</p></div>
+</div>
+
+</div>
+
+<script>
+// ══════════ TABS ══════════
+function showTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ══════════ BREATHWORK ══════════
+const techs={
+  box:{i:4,hi:4,e:4,he:4,desc:'Inhale 4 · Hold 4 · Exhale 4 · Hold 4 — equal-sided breathing stabilizes your nervous system.',why:'Slowing your breath stimulates the vagus nerve. Even 90 seconds measurably lowers heart rate and cortisol.'},
+  '478':{i:4,hi:7,e:8,he:0,desc:'Inhale 4 · Hold 7 · Exhale 8 — one of the fastest techniques for reducing acute anxiety.',why:'The extended exhale activates the parasympathetic system. The breath hold briefly raises CO₂, triggering a calming reflex.'},
+  sigh:{i:2,hi:0.5,e:6,he:0,desc:'Double inhale through nose (two sniffs), then one long slow exhale. Best for panic spikes.',why:"The double inhale re-inflates collapsed air sacs. The long exhale offloads CO₂ and drops arousal almost instantly — Stanford's Andrew Huberman calls this the fastest known breath technique for acute stress."},
+  exhale:{i:4,hi:0,e:8,he:0,desc:'Inhale 4 · Exhale 8 — simply doubling your exhale activates the parasympathetic response within a single breath.',why:"The exhale phase is when your heart rate slows and the vagus nerve is most active. Just make the out-breath longer than the in-breath."}
+};
+let curTech='box',bTO=null,bCI=null,bPhase=0;
+function selectTech(id,btn){curTech=id;document.querySelectorAll('.tech-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('techDesc').textContent=techs[id].desc;document.getElementById('whyBreath').textContent=techs[id].why;stopBreath();}
+function startBreath(){stopBreath();bPhase=0;runPhase();}
+function stopBreath(){clearTimeout(bTO);clearInterval(bCI);document.getElementById('breathLabel').textContent='Ready';document.getElementById('breathCount').textContent='—';const c=document.getElementById('breathCircle');c.classList.remove('expand','hold','contract');}
+function runPhase(){const t=techs[curTech];const phases=[];if(t.i>0)phases.push({lbl:'Inhale',ms:t.i*1000,cls:'expand'});if(t.hi>0)phases.push({lbl:'Hold',ms:t.hi*1000,cls:'hold'});if(t.e>0)phases.push({lbl:'Exhale',ms:t.e*1000,cls:'contract'});if(t.he>0)phases.push({lbl:'Hold',ms:t.he*1000,cls:'hold'});const ph=phases[bPhase%phases.length];const c=document.getElementById('breathCircle');c.classList.remove('expand','hold','contract');void c.offsetWidth;c.classList.add(ph.cls);c.style.setProperty('--idur',techs[curTech].i+'s');c.style.setProperty('--edur',techs[curTech].e+'s');document.getElementById('breathLabel').textContent=ph.lbl;let s=Math.ceil(ph.ms/1000);document.getElementById('breathCount').textContent=s;bCI=setInterval(()=>{s--;document.getElementById('breathCount').textContent=s>0?s:'';},1000);bTO=setTimeout(()=>{clearInterval(bCI);bPhase++;runPhase();},ph.ms);}
+
+// ══════════ 5-4-3-2-1 ══════════
+let senseDone=[false,false,false,false,false];
+function toggleSense(i){document.getElementById('sc'+i).classList.toggle('open');}
+function markSenseDone(i,e){e.stopPropagation();senseDone[i]=true;const c=document.getElementById('sc'+i);c.classList.add('done');c.classList.remove('open');updateSenseProgress();}
+function updateSenseProgress(){const n=senseDone.filter(Boolean).length;document.getElementById('senseProgress').style.width=(n/5*100)+'%';document.getElementById('senseProgressText').textContent=n+' of 5 complete'+(n===5?' — great work 🌿':'');}
+function resetSenses(){senseDone=[false,false,false,false,false];for(let i=0;i<5;i++){const c=document.getElementById('sc'+i);c.classList.remove('done','open');document.getElementById('si'+i).value='';}updateSenseProgress();}
+
+// ══════════ BILATERAL TAPPING ══════════
+let tapInterval=null,tapSide='left',tapBeat=0,tapSpeed=600,tapRunning=false;
+const tapCues=['Breathe slowly as you tap.','Left… right… left… right…','Feel each tap as it happens.','Let your shoulders drop.','Just follow the light.','You\'re doing great.','Stay with the rhythm.','Notice your breath slowing.','Keep going — you\'re regulating.','Almost there — you got this.'];
+function setTapSpeed(ms,btn){tapSpeed=ms;document.querySelectorAll('.spd-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(tapRunning){stopTap();startTap();}}
+function startTap(){stopTap();tapRunning=true;tapBeat=0;tapSide='left';document.getElementById('tapStartBtn').textContent='Running…';lightTap();tapInterval=setInterval(lightTap,tapSpeed);}
+function lightTap(){const L=document.getElementById('tapLeft');const R=document.getElementById('tapRight');L.classList.remove('lit');R.classList.remove('lit');if(tapSide==='left'){L.classList.add('lit');tapSide='right';}else{R.classList.add('lit');tapSide='left';}tapBeat++;if(tapBeat%8===1){const idx=Math.floor(tapBeat/8)%tapCues.length;const el=document.getElementById('tapCue');el.style.opacity='0';setTimeout(()=>{el.textContent=tapCues[idx];el.style.opacity='1';},150);}const pairs=Math.floor(tapBeat/2);document.getElementById('tapCounter').textContent=pairs>0?pairs+' tap pairs':'';}
+function stopTap(){clearInterval(tapInterval);tapRunning=false;document.getElementById('tapLeft').classList.remove('lit');document.getElementById('tapRight').classList.remove('lit');document.getElementById('tapCue').textContent='Press Start';document.getElementById('tapCounter').textContent='';document.getElementById('tapStartBtn').textContent='Start';}
+
+// ══════════ JOURNAL ══════════
+const prompts=['Where in my body am I holding this right now? What would it say if it could speak?',"What's the worst case I'm afraid of? How likely is it? What would I actually do if it happened?",'This feeling has visited me before. What helped then? What made it worse?',"What am I trying to control that I can't? What can I actually control right now?",'What is underneath the anger or fear? What is it protecting me from?','What would I need to believe about myself to feel okay right now?','The thought looping is ___. It might not be as true as it feels because ___.','I need to give myself permission to ___.',"One thing that's still true and solid about me, even right now:",'If I were outside in nature right now, where would I want to be? What would I see, hear, feel?','What craft or creative thing would I want to make about this feeling?'];
+function newPrompt(){const el=document.getElementById('randPromptText');el.style.opacity='0';setTimeout(()=>{el.textContent=prompts[Math.floor(Math.random()*prompts.length)];el.style.opacity='1';},180);}
+function usePrompt(el){const ta=document.getElementById('journalTA');ta.placeholder=el.textContent;ta.value='';ta.focus();}
+
+// ══════════ TIMER ══════════
+let timerTO=null,timerTotal=300,timerLeft=300,timerRunning=false;
+const CIRC=503;
+function setTimer(s,lbl,btn){resetTimer();timerTotal=s;timerLeft=s;document.getElementById('ringAct').textContent=lbl;document.querySelectorAll('.pre-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');updateRing();}
+function updateRing(){const m=Math.floor(timerLeft/60),s=timerLeft%60;document.getElementById('ringTime').textContent=m+':'+(s<10?'0':'')+s;document.getElementById('ringFill').style.strokeDashoffset=CIRC*(1-timerLeft/timerTotal);}
+function startTimer(){if(timerRunning)return;timerRunning=true;document.getElementById('timerBtn').textContent='Running…';timerTO=setInterval(()=>{timerLeft--;updateRing();if(timerLeft<=0){clearInterval(timerTO);timerRunning=false;document.getElementById('ringTime').textContent='Done ✓';document.getElementById('timerBtn').textContent='Start';}},1000);}
+function resetTimer(){clearInterval(timerTO);timerRunning=false;timerLeft=timerTotal;document.getElementById('timerBtn').textContent='Start';updateRing();}
+
+// ══════════ WELLNESS — TRACKERS ══════════
+function toggleTracker(tile){tile.classList.toggle('checked');}
+
+// Water
+let waterCount=0;
+function buildWater(){const row=document.getElementById('waterRow');row.innerHTML='';for(let i=0;i<8;i++){const cup=document.createElement('div');cup.className='water-cup'+(i<waterCount?' filled':'');cup.textContent='💧';cup.onclick=()=>{waterCount=i<waterCount?i:i+1;buildWater();};row.appendChild(cup);}document.getElementById('waterLabel').textContent=waterCount+' of 8 glasses'+(waterCount>=8?' — great job! 💙':'');}
+function resetWater(){waterCount=0;buildWater();}
+
+// Gym week
+const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+let gymDays={};
+const gymMessages=['','One down, two to go! 💪','Two sessions in — almost there! 🔥',"You hit your 3 sessions! 🎉 Amazing week.",'4 sessions — overachiever! 🌟','5 sessions — incredible! Rest is also important 😄','6 sessions — please take a rest day! 🧘','Full week — you are a machine! 🏆'];
+function buildGym(){const wrap=document.getElementById('gymWeek');wrap.innerHTML='';let count=Object.values(gymDays).filter(Boolean).length;days.forEach(d=>{const col=document.createElement('div');col.className='gym-day';col.onclick=()=>{gymDays[d]=!gymDays[d];buildGym();};const circle=document.createElement('div');circle.className='gym-day-circle'+(gymDays[d]?' done':'');circle.textContent=gymDays[d]?'✓':'';const lbl=document.createElement('div');lbl.className='gym-day-label';lbl.textContent=d;col.appendChild(circle);col.appendChild(lbl);wrap.appendChild(col);});document.getElementById('gymMessage').textContent=gymMessages[Math.min(count,gymMessages.length-1)];const smsRow=document.getElementById('smsRow');if(smsRow)smsRow.style.display=count>=3?'block':'none';}
+function sendWorkoutText(){const msgs=["Megan!! You hit all 3 workouts this week. I am so proud of you — seriously. You're doing the work and it shows. Keep going, I love you 🌿💪","Three gym sessions done! You showed up for yourself this week and that is EVERYTHING. So proud of you, Megan 🌸","You worked out 3 times this week. That's not nothing — that's huge. Your brain and body thank you. Keep going! 💪✨","Megan, you crushed your workouts this week. Every single rep is you investing in yourself. I'm rooting for you always 🏆🌿"];const msg=msgs[Math.floor(Math.random()*msgs.length)];window.location.href='sms:?body='+encodeURIComponent(msg);}
+
+// Workout log
+let workoutLogs=[];
+function addWorkoutLog(){const input=document.getElementById('workoutInput');const val=input.value.trim();if(!val)return;const now=new Date();const label=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});workoutLogs.unshift({date:label,note:val});input.value='';renderWorkoutLog();}
+function renderWorkoutLog(){const wrap=document.getElementById('workoutLog');wrap.innerHTML='';workoutLogs.slice(0,5).forEach((entry,i)=>{const div=document.createElement('div');div.className='workout-log-entry';div.innerHTML=`<div class="wl-header"><span class="wl-date">${entry.date}</span><button class="wl-delete" onclick="deleteWorkoutLog(${i})">remove</button></div><div class="wl-note">${entry.note}</div>`;wrap.appendChild(div);});}
+function deleteWorkoutLog(i){workoutLogs.splice(i,1);renderWorkoutLog();}
+
+// ══════════ GROCERY LIST ══════════
+const krogerItems=[
+  {cat:'Proteins',items:['Chicken breast','Salmon fillets','Ground turkey','Greek yogurt','Eggs (dozen)','Cottage cheese']},
+  {cat:'Produce',items:['Spinach / mixed greens','Bananas','Berries (fresh or frozen)','Avocados','Sweet potatoes','Broccoli','Bell peppers']},
+  {cat:'Pantry',items:['Oats (rolled)','Brown rice','Whole grain bread','Almond butter / peanut butter','Olive oil','Canned chickpeas','Pasta']},
+  {cat:'Dairy / Fridge',items:['String cheese','Kefir','Shredded cheese','Hummus']},
+];
+const aldiItems=[
+  {cat:'Proteins',items:['Chicken thighs','Canned tuna','Lentils (dry or canned)','Eggs','Plain Greek yogurt']},
+  {cat:'Produce',items:['Frozen mixed vegetables','Frozen berries','Apples','Carrots','Garlic','Onions','Lemons']},
+  {cat:'Pantry',items:['Nut butter','Rolled oats','Whole grain crackers','Canned tomatoes','Olive oil','Dark chocolate (70%+)','Trail mix / nuts']},
+  {cat:'Snacks',items:['Rice cakes','Popcorn','Dried fruit','Granola bars']},
+];
+let grocChecked={kroger:{},aldi:{}};
+let grocCustom={kroger:[],aldi:[]};
+let currentStore='kroger';
+
+function renderGrocery(store){
+  const wrap=document.getElementById('groc-'+store);
+  wrap.innerHTML='';
+  const base=store==='kroger'?krogerItems:aldiItems;
+  [...base,{cat:'My additions',items:grocCustom[store]}].forEach(section=>{
+    if(!section.items.length&&section.cat==='My additions')return;
+    const div=document.createElement('div');div.className='groc-category';
+    div.innerHTML='<div class="groc-cat-label">'+section.cat+'</div>';
+    section.items.forEach(item=>{
+      const key=store+'_'+item;
+      const row=document.createElement('div');
+      row.className='groc-item'+(grocChecked[store][item]?' checked':'');
+      row.onclick=()=>{grocChecked[store][item]=!grocChecked[store][item];renderGrocery(store);};
+      row.innerHTML=`<div class="gi-check">${grocChecked[store][item]?'✓':''}</div><div class="gi-text">${item}</div>`;
+      div.appendChild(row);
+    });
+    wrap.appendChild(div);
+  });
+}
+
+function switchStore(store,btn){
+  currentStore=store;
+  document.querySelectorAll('.groc-store').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.groc-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('groc-'+store).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addGrocItem(){
+  const val=document.getElementById('grocInput').value.trim();
+  if(!val)return;
+  grocCustom[currentStore].push(val);
+  document.getElementById('grocInput').value='';
+  renderGrocery(currentStore);
+}
+
+function clearCheckedGroc(){
+  Object.keys(grocChecked[currentStore]).forEach(k=>{if(grocChecked[currentStore][k])delete grocChecked[currentStore][k];});
+  grocCustom[currentStore]=grocCustom[currentStore].filter(item=>!grocChecked[currentStore][item]);
+  renderGrocery(currentStore);
+}
+
+// ══════════ RECIPES ══════════
+let recipes=[
+  {name:'High Protein Egg Bowls',link:'',cat:'breakfast',notes:'Eggs + black beans + salsa + avocado. 30g protein, 10 min.'},
+  {name:'Sheet Pan Salmon & Veggies',link:'',cat:'dinner',notes:'Salmon + broccoli + sweet potato. Olive oil, garlic, lemon. 400°F 20 min.'},
+  {name:'Greek Yogurt Parfait',link:'',cat:'breakfast',notes:'Greek yogurt + granola + frozen berries. Easy meal prep — build 4 jars Sunday.'},
+  {name:'Turkey Taco Bowls',link:'',cat:'meal prep',notes:'Ground turkey + rice + black beans + corn + cheese. Prep 4 servings at once.'},
+];
+let recipeFilter='all';
+const catColors={breakfast:'tag-sun',lunch:'tag-sage',dinner:'tag-sky',snack:'tag-warm','meal prep':'tag-rose'};
+
+function renderRecipes(){
+  const list=document.getElementById('recipeList');list.innerHTML='';
+  const filtered=recipeFilter==='all'?recipes:recipes.filter(r=>r.cat===recipeFilter);
+  if(!filtered.length){list.innerHTML='<p style="font-size:0.84rem;color:var(--muted);text-align:center;padding:16px 0;font-weight:300">No recipes yet in this category. Pin one below! 📌</p>';return;}
+  filtered.forEach((r,i)=>{
+    const realIdx=recipes.indexOf(r);
+    const card=document.createElement('div');card.className='recipe-card';
+    card.innerHTML=`<div class="rc-header"><div class="rc-title">${r.name}</div><button class="rc-delete" onclick="deleteRecipe(${realIdx})">remove</button></div><div class="rc-tags"><span class="tag ${catColors[r.cat]||'tag-sage'}">${r.cat}</span></div>${r.notes?`<div class="rc-notes">${r.notes}</div>`:''}${r.link?`<a href="${r.link}" target="_blank" class="rc-link">🔗 Open link</a>`:''}`;
+    list.appendChild(card);
+  });
+}
+
+function addRecipe(){
+  const name=document.getElementById('rName').value.trim();
+  if(!name)return;
+  recipes.unshift({name,link:document.getElementById('rLink').value.trim(),cat:document.getElementById('rCat').value,notes:document.getElementById('rNotes').value.trim()});
+  document.getElementById('rName').value='';document.getElementById('rLink').value='';document.getElementById('rNotes').value='';
+  renderRecipes();
+}
+
+function deleteRecipe(i){recipes.splice(i,1);renderRecipes();}
+
+function filterRecipes(cat,btn){
+  recipeFilter=cat;
+  document.querySelectorAll('.rf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRecipes();
+}
+
+// ══════════ INIT ══════════
+newPrompt();
+updateRing();
+buildWater();
+buildGym();
+renderGrocery('kroger');
+renderGrocery('aldi');
+renderRecipes();
+</script>
+</body>
+</html>
